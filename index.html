@@ -7,9 +7,10 @@
 
 <body>
 
-  <div id='cadastro'>
+  <div id='cadastro_aluno'>
+    <h2>Cadastro aluno</h2>
     <label for='Nome'>Nome</label>
-    <input type='text' id='nome' placeholder='Nome' /><br>
+    <input type='text' id='nome' placeholder='Nome' name='Nome' /><br>
 
     <label for='Série'>Série</label>
     <select id='serie' name='Série'>
@@ -19,6 +20,21 @@
       <option>4</option>
       <option>5</option>
     </select><br>
+
+    <label for='Valor'>Valor</label>
+    <input type='text' id='valor' placeholder='Valor' name='Valor' /><br>
+    <button>Cadastrar</button>
+  </div>
+
+
+  <div id='contas_pagar'>
+    <h2>Contas a pagar</h2>
+    <label for='Salário funcionários'>Salário funcionários</label>
+    <input type='text' id='salario_func' placeholder='0,00' name='Salário funcionários' /><br>
+
+    <label for='Local'>Local</label>
+    <input type='text' id='local' placeholder='Local' name='Local' /><br>
+
 
     <label for='Valor'>Valor</label>
     <input type='text' id='valor' placeholder='Valor' name='Valor' /><br>
