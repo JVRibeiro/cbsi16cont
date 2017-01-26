@@ -27,5 +27,9 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
         cadastro_aluno.valor = valor_aluno.value;
 
         localStorage.setItem( 'cadastro_aluno', JSON.stringify(cadastro_aluno) );
+
+        nome_aluno.value = '';
+        serie_aluno.value = '';
+        valor_aluno.value = '';
       }
     });
