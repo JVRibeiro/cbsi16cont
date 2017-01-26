@@ -8,11 +8,11 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
     $( '#serie_aluno' ).on( 'click', function ()
     {
       if ( serie_aluno.value === '1' ) valor_aluno.value = "R$ 190,00";
-      else if ( serie_aluno.value === '2' ) valor_aluno.value = "R$ 280,00";
-      else if ( serie_aluno.value === '3' ) valor_aluno.value = "R$ 400,00";
-      else if ( serie_aluno.value === '4' ) valor_aluno.value = "R$ 460,00";
-      else if ( serie_aluno.value === '5' ) valor_aluno.value = "R$ 530,00";
-      else valor_aluno.value = "";
+      if ( serie_aluno.value === '2' ) valor_aluno.value = "R$ 280,00";
+      if ( serie_aluno.value === '3' ) valor_aluno.value = "R$ 400,00";
+      if ( serie_aluno.value === '4' ) valor_aluno.value = "R$ 460,00";
+      if ( serie_aluno.value === '5' ) valor_aluno.value = "R$ 530,00";
+      if ( serie_aluno.value === 'Selecione' )  valor_aluno.value = "";
     });
 
 
