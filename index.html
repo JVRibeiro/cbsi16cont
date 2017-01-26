@@ -1,20 +1,30 @@
 <html>
 <head>
 
+  <meta charset='utf-8'>
+<link rel='stylesheet' href='css/index.css' />
 </head>
 
 <body>
+
   <div id='cadastro'>
-    <input type='text' placeholder='Nome' /><br>
-    <select>
+    <label for='Nome'>Nome</label>
+    <input type='text' id='nome' placeholder='Nome' /><br>
+
+    <label for='Série'>Série</label>
+    <select id='serie' name='Série'>
       <option>1</option>
       <option>2</option>
       <option>3</option>
       <option>4</option>
       <option>5</option>
     </select><br>
-    <input type='text' placeholder='Valor' /><br>
+
+    <label for='Valor'>Valor</label>
+    <input type='text' id='valor' placeholder='Valor' name='Valor' /><br>
   </div>
+
+  <script src='js/index.js'></script>
 </body>
 
 </html>
