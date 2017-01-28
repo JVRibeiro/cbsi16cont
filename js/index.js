@@ -6,11 +6,17 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
     nome_bens = document.querySelector( '#nome_bens' ),
     tipo_bens = document.querySelector( '#tipo_bens' ),
     valor_bens = document.querySelector( '#valor_bens' ),
-    bens_cadastrados = document.querySelector( '#bens_cadastrados' );
+    bens_cadastrados = document.querySelector( '#bens_cadastrados' ),
+
+    total_bens = 0,
+    total_alunos = 0;
 
     if ( window.localStorage.getItem('cadastro_aluno') ) alunos_cadastrados.innerHTML = localStorage.getItem('cadastro_aluno');
 
     if ( window.localStorage.getItem('cadastro_bens') ) bens_cadastrados.innerHTML = localStorage.getItem('cadastro_bens');
+
+    if ( window.localStorage.getItem('total_alunos') ) $('#alunos_total').html(localStorage.getItem('total_alunos'));
+    if ( window.localStorage.getItem('total_bens') ) $('#bens_total').html(localStorage.getItem('total_bens'));
 
 
 
@@ -27,6 +33,19 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
 
     $( '#cadastrar_aluno' ).on( 'click', function ()
     {
+      cadastrar_aluno();
+    });
+
+    $( '#cadastrar_bens' ).on( 'click', function ()
+    {
+      cadastrar_bens();
+    });
+
+
+
+
+    function cadastrar_aluno ()
+    {
       if ( nome_aluno.value !== ''
         && serie_aluno.value !== ''
         && valor_aluno.value !== '' )
@@ -40,16 +59,18 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
 
         localStorage.setItem( 'cadastro_aluno', alunos_cadastrados.innerHTML );
 
+        total_alunos = total_alunos + Number(valor_aluno.value);
+
         nome_aluno.value = '';
-        serie_aluno.value = '';
+        serie_aluno.value = 'Selecione';
         valor_aluno.value = '';
+
+        $('#alunos_total').html(total_alunos);
+        localStorage.setItem( 'total_alunos', total_alunos );
       }
-    });
+    }
 
-
-
-
-    $( '#cadastrar_bens' ).on( 'click', function ()
+    function cadastrar_bens ()
     {
       if ( nome_bens.value !== ''
         && tipo_bens.value !== 'Selecione'
@@ -59,18 +80,21 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
            '<li>'
            + '<div class="saved_nome">' + nome_bens.value + '</div>'
            + '<div class="saved_tipo">' + tipo_bens.value + '</div>'
-           + '<div class="saved_valor">' + valor_bens.value + '</div>'
+           + '<div class="saved_valor"><span class="valor_bens">' + valor_bens.value + '</span></div>'
           + '</li>'
 
         localStorage.setItem( 'cadastro_bens', bens_cadastrados.innerHTML );
 
+        total_bens = total_bens + Number(valor_bens.value);
+
         nome_bens.value = '';
         tipo_bens.value = 'Selecione';
         valor_bens.value = '';
+
+        $('#bens_total').html(total_bens);
+        localStorage.setItem( 'total_bens', total_bens );
       }
-    });
-
-
+    };
 
     function show_cadastro_aluno ()
     {
