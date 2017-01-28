@@ -5,11 +5,12 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
 
     nome_bens = document.querySelector( '#nome_bens' ),
     tipo_bens = document.querySelector( '#tipo_bens' ),
+    qtd_bens = document.querySelector( '#qtd_bens' ),
     valor_bens = document.querySelector( '#valor_bens' ),
     bens_cadastrados = document.querySelector( '#bens_cadastrados' ),
 
-    salariofunc_cap = document.querySelector( '#salario_func' ),
-    local_cap = document.querySelector( '#local_cap' ),
+    nome_cap = document.querySelector( '#nome_cap' ),
+    qtd_cap = document.querySelector( '#qtd_cap' ),
     valor_cap = document.querySelector( '#valor_cap' ),
     cap_cadastrados = document.querySelector( '#cap_cadastrados' ),
 
@@ -104,6 +105,7 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
         && tipo_bens.value !== 'Selecione'
         && valor_bens.value !== '' )
       {
+        valor_bens.value = valor_bens.value * qtd_bens.value;
         bens_cadastrados.innerHTML +=
            '<li>'
            + '<div class="saved_nome">' + nome_bens.value + '</div>'
@@ -115,8 +117,9 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
 
         total_bens = total_bens + Number(valor_bens.value);
 
-        nome_bens.value = '';
         tipo_bens.value = 'Selecione';
+        nome_bens.value = '';
+        qtd_bens.value = '';
         valor_bens.value = '';
 
         $('#bens_total').html(total_bens);
@@ -126,25 +129,26 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
 
     function cadastrar_cap ()
     {
-      if ( salariofunc_cap.value !== ''
-        && local_cap.value !== ''
+      if ( nome_cap.value !== ''
+        && qtd_cap.value !== ''
         && valor_cap.value !== '' )
       {
+
         cap_cadastrados.innerHTML +=
            '<li>'
-           + '<div class="saved_1">' + salariofunc_cap.value + '</div>'
-           + '<div class="saved_2">' + local_cap.value + '</div>'
-           + '<div class="saved_3">' + valor_cap.value + '</div>'
+           + '<div class="saved_1">Nome da conta: <span id="nome_cap_value">' + nome_cap.value + '</span></div>'
+           + '<div class="saved_1">Quantidade: <span id="qtd_cap_value">' + qtd_cap.value + '</span></div>'
+           + '<div class="saved_2">Valor Unitário: R$<span id="valor_unit_cap_value">' + valor_cap.value + '</span></div>'
+           + '<div class="saved_2">Valor Total: R$<span id="valor_cap_value">' + qtd_cap.value * valor_cap.value + '</span></div>'
           + '</li>'
 
         localStorage.setItem( 'cadastro_cap', cap_cadastrados.innerHTML );
 
         total_cap = total_cap
-                  + Number(salariofunc_cap.value)
-                  + Number(valor_cap.value);
+                  + Number(qtd_cap.value * valor_cap.value);
 
-        salariofunc_cap.value = '';
-        local_cap.value = '';
+        nome_cap.value = '';
+        qtd_cap.value = '';
         valor_cap.value = '';
 
         $('#cap_total').html(total_cap);
