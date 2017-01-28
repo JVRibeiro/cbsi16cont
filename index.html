@@ -19,6 +19,9 @@
   <button onclick='localStorage.clear(); document.location.reload();'>Zerar dados e reiniciar</button>
   <button onclick='show_cadastro_aluno()'>Mostrar cadastro_aluno</button>
   <button onclick='show_cadastro_bens()'>Mostrar cadastro_bens</button>
+  <button onclick='show_cadastro_cap()'>Mostrar cadastro_cap</button>
+
+  <div>Situação Líquida Patrimonial: R$<span id='sit_liq_pat'></span></div>
 
   <div id='cadastro_aluno'>
     <h2>Cadastro aluno</h2>
@@ -107,15 +110,29 @@
   <div id='contas_pagar'>
     <h2>Contas a pagar</h2>
     <label for='Salário funcionários'>Salário funcionários</label>
-    <input type='text' id='salario_func' placeholder='0,00' name='Salário funcionários' /><br>
+    <input type='number' id='salario_func' placeholder='0,00' /><br>
 
     <label for='Local'>Local</label>
-    <input type='text' id='local' placeholder='Local' name='Local' /><br>
+    <input type='text' id='local_cap' placeholder='Local' /><br>
 
 
     <label for='Valor'>Valor</label>
-    <input type='text' id='valor' placeholder='Valor' name='Valor' /><br>
+    <input type='number' id='valor_cap' placeholder='Valor' /><br>
+
+
+    <button id='cadastrar_cap'>Cadastrar Essa Merda</button>
+
+
+    <div id='cap_cadastrados_holder' class='fixed_right'>
+      <h2>Contas a Pagar</h2>
+      <ul id='cap_cadastrados'>
+
+      </ul>
+      <div class='cap_total'>Total: <span id='cap_total'></span></div>
+    </div>
   </div>
+
+  <button onclick='calcular()'>Terminar</button>
 
   <script src='js/index.js'></script>
 </body>
