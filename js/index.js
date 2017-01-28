@@ -9,24 +9,34 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
     bens_cadastrados = document.querySelector( '#bens_cadastrados' ),
 
     total_bens = 0,
-    total_alunos = 0;
+    total_alunos = 0,
+
+    _totalALunos = localStorage.getItem('total_alunos'),
+    _totalBens = localStorage.getItem('total_bens');
 
     if ( window.localStorage.getItem('cadastro_aluno') ) alunos_cadastrados.innerHTML = localStorage.getItem('cadastro_aluno');
 
     if ( window.localStorage.getItem('cadastro_bens') ) bens_cadastrados.innerHTML = localStorage.getItem('cadastro_bens');
 
-    if ( window.localStorage.getItem('total_alunos') ) $('#alunos_total').html(localStorage.getItem('total_alunos'));
-    if ( window.localStorage.getItem('total_bens') ) $('#bens_total').html(localStorage.getItem('total_bens'));
+    if ( _totalALunos )
+    {
+      $( '#alunos_total' ).html( _totalALunos ); 
+      total_alunos = Number( _totalALunos );
+    }
+    if ( _totalBens )
+    {
+      $( '#bens_total' ).html( _totalBens );
+    }
 
 
 
     $( '#serie_aluno' ).on( 'click', function ()
     {
-      if ( serie_aluno.value === '1' ) valor_aluno.value = "R$ 190,00";
-      if ( serie_aluno.value === '2' ) valor_aluno.value = "R$ 280,00";
-      if ( serie_aluno.value === '3' ) valor_aluno.value = "R$ 400,00";
-      if ( serie_aluno.value === '4' ) valor_aluno.value = "R$ 460,00";
-      if ( serie_aluno.value === '5' ) valor_aluno.value = "R$ 530,00";
+      if ( serie_aluno.value === '1' ) valor_aluno.value = 190,00;
+      if ( serie_aluno.value === '2' ) valor_aluno.value = 280,00;
+      if ( serie_aluno.value === '3' ) valor_aluno.value = 400,00;
+      if ( serie_aluno.value === '4' ) valor_aluno.value = 460,00;
+      if ( serie_aluno.value === '5' ) valor_aluno.value = 530,00;
       if ( serie_aluno.value === 'Selecione' )  valor_aluno.value = "";
     });
 
