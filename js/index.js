@@ -33,10 +33,12 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
     if ( _totalBens )
     {
       $( '#bens_total' ).html( _totalBens );
+      total_bens = Number( _totalBens );
     }
     if ( _totalCap )
     {
       $( '#cap_total' ).html( _totalCap );
+      total_cap = Number( _totalCap );
     }
 
 
@@ -174,6 +176,8 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
 
     function calcular ()
     {
-      var calculo = (_totalALunos + _totalBens) - _totalCap;
+      var calculo = (total_alunos + total_bens) - total_cap;
       $('#sit_liq_pat').html(calculo);
     }
+
+    console.log('1');
