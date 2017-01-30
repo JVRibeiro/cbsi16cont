@@ -1,10 +1,152 @@
 <html>
 <head>
 
+  <meta charset='utf-8'>
+<link rel='stylesheet' href='css/index.css' />
+
+<script src='js/jquery.min.js'></script>
 </head>
 
 <body>
 
+
+
+
+
+
+
+<div id='navbar'>
+  <button onclick='localStorage.clear(); document.location.reload();'>Zerar dados e reiniciar</button>
+  <button onclick='show_cadastro_aluno()'>Mostrar cadastro_aluno</button>
+  <button onclick='show_cadastro_bens()'>Mostrar cadastro_bens</button>
+  <button onclick='show_cadastro_cap()'>Mostrar cadastro_cap</button>
+</div>
+
+  <div id='cadastro_aluno' class='page'>
+    <h2>Cadastro aluno</h2>
+    <label for='nome_aluno'>Nome</label><br>
+    <input type='text' id='nome_aluno' /><br>
+
+    <label for='serie_aluno'>Série</label><br>
+    <select id='serie_aluno' name='Série'>
+      <option>Selecione</option>
+      <option value='1ª Série'>1ª Série</option>
+      <option value='2ª Série'>2ª Série</option>
+      <option value='3ª Série'>3ª Série</option>
+      <option value='4ª Série'>4ª Série</option>
+      <option value='5ª Série'>5ª Série</option>
+    </select><br>
+
+    <label for='valor_aluno'>Valor da Parcela (R$)</label><br>
+    <input disabled type='number' id='valor_aluno' /><br>
+
+    <button id='cadastrar_aluno'>Cadastrar Aluno</button>
+
+
+
+    <div id='alunos_cadastrados_holder' class='fixed_right'>
+      <h2>Alunos Cadastrados</h2>
+
+      <ul id='alunos_cadastrados'></ul>
+
+      <div class='fixed_right_total'>
+        <div class='fixed_right_total_text'>Total</div>
+        <div id='alunos_total' class='fixed_right_total_amount money_value'>0</div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div id='cadastro_bens' class='page no-display'>
+    <h2>Cadastro bens</h2>
+
+    <label for='tipo_bens'>Tipo</label><br>
+    <select id='tipo_bens' name='Série'>
+      <option>Selecione</option>
+      <option value='Móvel'>Móvel</option>
+      <option value='Imóvel'>Imóvel</option>
+    </select><br>
+
+    <label for='nome_bens'>Nome do bem</label><br>
+    <input type='text' id='nome_bens' /><br>
+
+    <label for='qtd_bens'>Quantidade</label><br>
+    <input type='number' id='qtd_bens' /><br>
+
+    <label for='valor_bens'>Valor Unitário (R$)</label><br>
+    <input type='number' id='valor_bens' /><br>
+
+    <button id='cadastrar_bens'>Incluir Bem</button>
+
+
+
+    <div id='bens_cadastrados_holder' class='fixed_right no-display'>
+      <h2>Bens Cadastrados</h2>
+
+      <ul id='bens_cadastrados'></ul>
+
+      <div class='fixed_right_total'>
+        <div class='fixed_right_total_text'>Total</div>
+        <div id='bens_total' class='fixed_right_total_amount money_value'>0</div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div id='contas_pagar' class='page no-display'>
+    <h2>Contas a pagar</h2>
+    <label for='nome_cap'>Nome da conta</label><br>
+    <input type='text' id='nome_cap' /><br>
+
+    <label for='qtd_cap'>Quantidade</label><br>
+    <input type='number' id='qtd_cap' /><br>
+
+    <label for='valor_cap'>Valor Unitário (R$)</label><br>
+    <input type='number' id='valor_cap' /><br>
+
+
+    <button id='cadastrar_cap'>Incluir Conta</button>
+
+
+    <div id='cap_cadastrados_holder' class='fixed_right'>
+      <h2>Contas a Pagar</h2>
+
+      <ul id='cap_cadastrados'></ul>
+
+      <div class='fixed_right_total'>
+        <div class='fixed_right_total_text'>Total</div>
+        <div id='cap_total' class='fixed_right_total_amount money_value'>0</div>
+      </div>
+    </div>
+  </div>
+
+  <div id='bottom_bar'>
+    <button onclick='calcular()'>Terminar</button>
+    <div style='display: inline-block'>Situação Líquida Patrimonial: <span id='sit_liq_pat' class='money_value'>0</span></div>
+  </div>
+  <script src='js/index.js'></script>
 </body>
 
 </html>
