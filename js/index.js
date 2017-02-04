@@ -6,7 +6,17 @@
     Github: github.com/JVRibeiro
 */
 
-var nome_aluno = document.querySelector( '#nome_aluno' ),
+var data = {},
+
+    serie = {
+      1: 5,
+      2: 5,
+      3: 5,
+      4: 5,
+      5: 5
+    },
+
+    nome_aluno = document.querySelector( '#nome_aluno' ),
     serie_aluno = document.querySelector( '#serie_aluno' ),
     valor_aluno = document.querySelector( '#valor_aluno' ),
     alunos_cadastrados = document.querySelector( '#alunos_cadastrados' ),
@@ -37,12 +47,26 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
 
 
     // Carrega os dados salvos
-    if ( _cadastroAluno ) alunos_cadastrados.innerHTML = localStorage.getItem( 'cadastro_aluno' );
-    if ( _cadastroBens ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
-    if ( _cadastroCAP ) cap_cadastrados.innerHTML = localStorage.getItem( 'cadastro_cap' );
+    $(document).ready(function ()
+    {
+      if ( _cadastroAluno != undefined ) data.aluno = JSON.parse(window.localStorage.getItem( 'cadastro_aluno' ));
+      if ( _cadastroBens ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
+      if ( _cadastroCAP ) cap_cadastrados.innerHTML = localStorage.getItem( 'cadastro_cap' );
+
+
 
     if ( _totalALunos )
     {
+      for (var i = 0; i < data.aluno.length; i++)
+      {
+        alunos_cadastrados.innerHTML +=
+           '<li>'
+           + '<div class="saved_nome"><span id="nome_aluno_value">' + data.aluno[i].nome + '</span></div>'
+           + '<div class="saved_serie">Série: <span id="serie_aluno_value">' + data.aluno[i].serie + '</span></div>'
+           + '<div class="saved_valor">Valor da parcela: <span id="valor_aluno_value" class="money_value">' + data.aluno[i].valor_parcela + '</span></div>'
+          + '</li>'
+      }
+
       $( '#alunos_total' ).html( _totalALunos );
       total_alunos = Number( _totalALunos );
     }
@@ -56,6 +80,7 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
       $( '#cap_total' ).html( _totalCap );
       total_cap = Number( _totalCap );
     }
+    });
 
 
     // Event Listeners
@@ -87,6 +112,7 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
       nome_cap.focus();
     });
 
+    data.aluno = [];
 
 
     // Funções
@@ -94,8 +120,15 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
     {
       if ( nome_aluno.value !== ''
         && serie_aluno.value !== ''
-        && valor_aluno.value !== '' )
+        && valor_aluno.value !== ''
+        && data.aluno.length < 5 )
       {
+        data.aluno[data.aluno.length] = {};
+        data.aluno[data.aluno.length - 1].nome = nome_aluno.value;
+        data.aluno[data.aluno.length - 1].serie = serie_aluno.value;
+        data.aluno[data.aluno.length - 1].valor_parcela = valor_aluno.value;
+
+
         alunos_cadastrados.innerHTML +=
            '<li>'
            + '<div class="saved_nome"><span id="nome_aluno_value">' + nome_aluno.value + '</span></div>'
@@ -103,7 +136,7 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
            + '<div class="saved_valor">Valor da parcela: <span id="valor_aluno_value" class="money_value">' + valor_aluno.value + '</span></div>'
           + '</li>'
 
-        localStorage.setItem( 'cadastro_aluno', alunos_cadastrados.innerHTML );
+        localStorage.setItem( 'cadastro_aluno', JSON.stringify(data.aluno) );
 
         total_alunos = total_alunos + Number(valor_aluno.value);
 
@@ -114,6 +147,7 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
         $( '#alunos_total' ).html(total_alunos);
         localStorage.setItem( 'total_alunos', total_alunos );
       }
+      else if ( data.aluno.length > 5 ) alert( 'Limite de alunos atingido!' );
       else alert( 'Você esqueceu um campo em branco!' );
     }
 
@@ -185,19 +219,19 @@ var nome_aluno = document.querySelector( '#nome_aluno' ),
     function show_cadastro_aluno ()
     {
       $( '.page, .fixed_right' ).hide();
-      $( '#cadastro_aluno, #alunos_cadastrados_holder' ).show();
+      $( '#cadastro_aluno, #alunos_cadastrados_holder' ).fadeIn();
     }
 
     function show_cadastro_bens ()
     {
       $( '.page, .fixed_right' ).hide();
-      $( '#cadastro_bens, #bens_cadastrados_holder' ).show();
+      $( '#cadastro_bens, #bens_cadastrados_holder' ).fadeIn();
     }
 
     function show_cadastro_cap ()
     {
       $( '.page, .fixed_right' ).hide();
-      $( '#contas_pagar, #cap_cadastrados_holder' ).show();
+      $( '#contas_pagar, #cap_cadastrados_holder' ).fadeIn();
     }
 
 

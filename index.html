@@ -11,10 +11,6 @@
 
 
 
-
-
-
-
 <div id='navbar'>
   <button onclick='localStorage.clear(); document.location.reload();'>Zerar dados e reiniciar</button>
   <button onclick='show_cadastro_aluno()'>Mostrar cadastro_aluno</button>
@@ -28,7 +24,7 @@
     <input type='text' id='nome_aluno' /><br>
 
     <label for='serie_aluno'>Série</label><br>
-    <select id='serie_aluno' name='Série'>
+    <select id='serie_aluno'>
       <option>Selecione</option>
       <option value='1ª Série'>1ª Série</option>
       <option value='2ª Série'>2ª Série</option>
@@ -116,8 +112,8 @@
 
 
   <div id='contas_pagar' class='page no-display'>
-    <h2>Contas a pagar</h2>
-    <label for='nome_cap'>Nome da conta</label><br>
+    <h2>Obrigações</h2>
+    <label for='nome_cap'>Descrição</label><br>
     <input type='text' id='nome_cap' /><br>
 
     <label for='qtd_cap'>Quantidade</label><br>
@@ -144,7 +140,7 @@
 
   <div id='bottom_bar'>
     <button onclick='calcular()'>Terminar</button>
-    <div style='display: inline-block'>Situação Líquida Patrimonial: <span id='sit_liq_pat' class='money_value'>0</span></div>
+    <div style='display: inline-block'>Patrimônio Líquido: <span id='sit_liq_pat' class='money_value'>0</span></div>
   </div>
   <script src='js/index.js'></script>
 </body>
