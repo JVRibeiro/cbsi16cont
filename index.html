@@ -2,9 +2,11 @@
 <head>
 
   <meta charset='utf-8'>
-<link rel='stylesheet' href='css/index.css' />
+  <link rel='stylesheet' href='css/index.css' />
+  <link rel='stylesheet' href='css/jquery-ui-1.8.24.custom.css' />
 
-<script src='js/jquery.min.js'></script>
+  <script src='js/jquery.min.js'></script>
+  <script src='js/jquery-ui-1.8.24.min.js'></script>
 </head>
 
 <body>
@@ -17,28 +19,48 @@
 
 <div id='navbar'>
   <button onclick='localStorage.clear(); document.location.reload();'>Zerar dados e reiniciar</button>
-  <button onclick='show_cadastro_aluno()'>Mostrar cadastro_aluno</button>
-  <button onclick='show_cadastro_bens()'>Mostrar cadastro_bens</button>
-  <button onclick='show_cadastro_cap()'>Mostrar cadastro_cap</button>
+  <button onclick='data.show_cadastro_aluno()'>cadastro_aluno</button>
+  <button onclick='data.show_controle_pagam()'>controle_pagam</button>
+  <button onclick='data.show_cadastro_bens()'>cadastro_bens</button>
+  <button onclick='data.show_cadastro_cap()'>cadastro_cap</button>
 </div>
 
   <div id='cadastro_aluno' class='page'>
-    <h2>Cadastro aluno</h2>
-    <label for='nome_aluno'>Nome</label><br>
-    <input type='text' id='nome_aluno' /><br>
+    <h2>Cadastrar Aluno</h2>
 
-    <label for='serie_aluno'>Série</label><br>
-    <select id='serie_aluno' name='Série'>
-      <option>Selecione</option>
-      <option value='1ª Série'>1ª Série</option>
-      <option value='2ª Série'>2ª Série</option>
-      <option value='3ª Série'>3ª Série</option>
-      <option value='4ª Série'>4ª Série</option>
-      <option value='5ª Série'>5ª Série</option>
-    </select><br>
+    <ul class='fields'>
+      <li>
+        <label for='alunoNome'>Nome</label><br>
+        <input type='text' id='alunoNome' autofocus />
+      </li>
 
-    <label for='valor_aluno'>Valor da Parcela (R$)</label><br>
-    <input disabled type='number' id='valor_aluno' /><br>
+      <li>
+        <label for='alunoSerie'>Série (vagas: <span id='v_disp'>selecione</span>)</label><br>
+        <select id='alunoSerie'>
+          <option>Selecione</option>
+          <option value='1ª Série'>1ª Série • R$ 190,00 / mês</option>
+          <option value='2ª Série'>2ª Série • R$ 280,00 / mês</option>
+          <option value='3ª Série'>3ª Série • R$ 400,00 / mês</option>
+          <option value='4ª Série'>4ª Série • R$ 460,00 / mês</option>
+          <option value='5ª Série'>5ª Série • R$ 530,00 / mês</option>
+        </select>
+      </li>
+
+      <li style='display: none !important'>
+        <label for='alunoParcela'>Valor da Parcela (R$)</label><br>
+        <input disabled type='number' id='alunoParcela' /><br>
+      </li>
+
+      <li>
+        <label for='alunoVencimento'>Vencimento</label><br>
+        <select id='alunoVencimento'>
+          <option>Selecione</option>
+          <option value='1'>1</option>
+          <option value='5'>5</option>
+          <option value='10'>10</option>
+        </select>
+      </li>
+    </ul>
 
     <button id='cadastrar_aluno'>Cadastrar Aluno</button>
 
@@ -63,25 +85,82 @@
 
 
 
+  <script src='js/jquery-ui.autocomplete.js'></script>
+
+  <div id='controle_pagamentos' class='page no-display'>
+    <h2>Pagamentos</h2>
+
+    <ul class='fields'>
+      <li>
+        <label for='alunoListaNome'>Nome do aluno (nome ou sobrenome)</label><br>
+        <select id='alunoListaNome'></select>
+        <button id='alunoListaNome_select'>Selecionar</button>
+      </li>
+    </ul>
+
+    <center>
+      <div class='client_info'>
+        <h2>Resumo do cliente</h2>
+        <div>
+          Nome: JOAO VICTOR CUIMAR RIBEIRO<br>
+          Série: 1 Série<br>
+          Valor da parcela: R$ 190,00<br>
+          Data de cadastro: 02/06/2017<br>
+          Situação: Regularizado<br>
+        </div>
+        <button id='controle_pagamentos_confirm'>Confirmar pagamento</button>
+      </div>
+    </center>
+
+
+    <div id='pagamentos_confirmados_holder' class='fixed_right'>
+      <h2>Pagamento Confirmados</h2>
+
+      <ul id='alunos_cadastrados'></ul>
+
+      <div class='fixed_right_total'>
+        <div class='fixed_right_total_text'>Total</div>
+        <div id='alunos_total' class='fixed_right_total_amount money_value'>0</div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
 
   <div id='cadastro_bens' class='page no-display'>
     <h2>Cadastro bens</h2>
 
-    <label for='tipo_bens'>Tipo</label><br>
-    <select id='tipo_bens' name='Série'>
-      <option>Selecione</option>
-      <option value='Móvel'>Móvel</option>
-      <option value='Imóvel'>Imóvel</option>
-    </select><br>
+    <ul class='fields'>
+      <li>
+        <label for='tipo_bens'>Tipo</label><br>
+        <select id='tipo_bens' name='Série'>
+          <option>Selecione</option>
+          <option value='Móvel'>Móvel</option>
+          <option value='Imóvel'>Imóvel</option>
+        </select>
+      </li>
 
-    <label for='nome_bens'>Nome do bem</label><br>
-    <input type='text' id='nome_bens' /><br>
+      <li>
+        <label for='nome_bens'>Nome do bem</label><br>
+        <input type='text' id='nome_bens' /><br>
+      </li>
 
-    <label for='qtd_bens'>Quantidade</label><br>
-    <input type='number' id='qtd_bens' /><br>
+      <li>
+        <label for='qtd_bens'>Quantidade</label><br>
+        <input type='number' id='qtd_bens' /><br>
+      </li>
 
-    <label for='valor_bens'>Valor Unitário (R$)</label><br>
-    <input type='number' id='valor_bens' /><br>
+      <li>
+        <label for='valor_bens'>Valor Unitário (R$)</label><br>
+        <input type='number' id='valor_bens' /><br>
+      </li>
+    </ul>
 
     <button id='cadastrar_bens'>Incluir Bem</button>
 
@@ -116,8 +195,8 @@
 
 
   <div id='contas_pagar' class='page no-display'>
-    <h2>Contas a pagar</h2>
-    <label for='nome_cap'>Nome da conta</label><br>
+    <h2>Obrigações</h2>
+    <label for='nome_cap'>Descrição</label><br>
     <input type='text' id='nome_cap' /><br>
 
     <label for='qtd_cap'>Quantidade</label><br>
@@ -127,11 +206,11 @@
     <input type='number' id='valor_cap' /><br>
 
 
-    <button id='cadastrar_cap'>Incluir Conta</button>
+    <button id='cadastrar_cap'>Incluir</button>
 
 
     <div id='cap_cadastrados_holder' class='fixed_right'>
-      <h2>Contas a Pagar</h2>
+      <h2>Obrigações</h2>
 
       <ul id='cap_cadastrados'></ul>
 
@@ -144,7 +223,7 @@
 
   <div id='bottom_bar'>
     <button onclick='calcular()'>Terminar</button>
-    <div style='display: inline-block'>Situação Líquida Patrimonial: <span id='sit_liq_pat' class='money_value'>0</span></div>
+    <div style='display: inline-block'>Patrimônio Líquido: <span id='patrimLiq' class='money_value'>0</span></div>
   </div>
   <script src='js/index.js'></script>
 </body>

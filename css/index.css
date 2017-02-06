@@ -1,78 +1,97 @@
 body {
-  font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 .no-display {
-  display: none;
+    display: none;
 }
 
 button {
-  background-color: #356dd6;
-  color: #fff;
-  border: none;
-  padding: 10px 25px 10px 25px;
-  margin: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  outline: none;
+    background-color: #356dd6;
+    color: #fff;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    outline: none;
 }
 
 button:hover, button:focus {
-  background-color: #6e91d4;
+    background-color: #6e91d4;
 }
 
 button:active {
-  background-color: #335aa5;
+    background-color: #335aa5;
 }
 
 input, select {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #b9b9b9;
-  font-size: 12pt;
-  text-transform: uppercase;
-  margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    border-bottom: 4px solid #6fa1ff;
+    font-size: 12pt;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    transition: .5s ease;
+    outline: none;
+}
+
+input:focus, select:focus {
+    box-shadow: 0 0 20px #639ef7;
+}
+
+.fields {
+    list-style: none;
+    padding: 0;
+}
+
+.fields li {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 30px 10px 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #e3e3e3;
 }
 
 #navbar {
-  width: 100%;
-  height: 50px;
-  background-color: #acc9ff;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  z-index: 3;
+    width: 100%;
+    height: 50px;
+    background-color: #acc9ff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 3;
 }
 
 #bottom_bar {
-  width: calc(100% - 300px);
-  height: 50px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: #d9dfe8;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    width: calc(100% - 300px);
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #d9dfe8;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .page {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  width: calc(100% - 400px);
-  height: calc(100% - 100px);
-  background-color: #fff;
-  padding-left: 100px;
-  overflow: hidden;
-  overflow-y: scroll;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: calc(100% - 300px);
+    height: calc(100% - 100px);
+    background-color: #fff;
+    overflow: hidden;
+    overflow-y: scroll;
+    text-align: center;
 }
 
 .page h2 {
     padding: 20px;
     margin: 0;
-    margin-left: -100px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     background-color: #6fa1ff;
     color: #fff;
     text-align: center;
@@ -81,16 +100,16 @@ input, select {
 }
 
 .fixed_right {
-  position: fixed;
-  right: 0;
-  top: 50px;
-  background-color: #e3e3e3;
-  width: 300px;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  z-index: 2;
+    position: fixed;
+    right: 0;
+    top: 50px;
+    background-color: #e3e3e3;
+    width: 300px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 2;
 }
 
 .fixed_right h2 {
@@ -104,24 +123,24 @@ input, select {
 }
 
 .fixed_right ul {
-  margin: 0;
-  margin-top: 5px;
-  padding: 0;
-  max-height: calc(100% - 180px);
-  min-height: calc(100% - 180px);
-  overflow: hidden;
-  overflow-y: scroll;
+    margin: 0;
+    margin-top: 5px;
+    padding: 0;
+    max-height: calc(100% - 180px);
+    min-height: calc(100% - 180px);
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .fixed_right ul li {
-  list-style: none;
-  background-color: #ffffff;
-  border-left: 3px solid #8893e0;
-  font-size: 11pt;
-  padding: 10px 10px 10px 20px;
-  margin: 0;
-  margin-bottom: 3px;
-  margin-left: 5px;
+    list-style: none;
+    background-color: #ffffff;
+    border-left: 3px solid #8893e0;
+    font-size: 11pt;
+    padding: 10px 10px 10px 20px;
+    margin: 0;
+    margin-bottom: 3px;
+    margin-left: 5px;
 }
 
 .fixed_right ul li .saved_nome {
@@ -129,32 +148,44 @@ input, select {
 }
 
 .fixed_right_total {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 300px;
-  height: 50px;
-  background-color: #ececec;
-  border-top: 1px solid #cccccc;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 50px;
+    background-color: #ececec;
+    border-top: 1px solid #cccccc;
 }
 
 .fixed_right_total_text {
-  padding: 16px 15px 16px 15px;
-  position: absolute;
-  top: 0;
+    padding: 16px 15px 16px 15px;
+    position: absolute;
+    top: 0;
 }
 
 .fixed_right_total_amount {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 16px 20px 16px 20px;
-  background-color: #cae5e8;
-  border-left: 1px solid #cccccc;
-  font-weight: bold;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 16px 20px 16px 20px;
+    background-color: #cae5e8;
+    border-left: 1px solid #cccccc;
+    font-weight: bold;
 }
 
 .money_value::before {
-  content: 'R$';
-  margin-right: 5px;
+    content: 'R$';
+    margin-right: 5px;
+}
+
+.client_info {
+    width: 50%;
+    max-width: 100%;
+    text-align: left;
+    line-height: 25px;
+    box-shadow: 0 0 20px #737373;
+}
+
+.client_info div {
+    padding: 15px;
 }
