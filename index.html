@@ -13,6 +13,10 @@
 
 
 
+
+
+
+
 <div id='navbar'>
   <button onclick='localStorage.clear(); document.location.reload();'>Zerar dados e reiniciar</button>
   <button onclick='data.show_cadastro_aluno()'>cadastro_aluno</button>
@@ -22,7 +26,6 @@
 </div>
 
   <div id='cadastro_aluno' class='page'>
-<<<<<<< HEAD
     <h2>Cadastrar Aluno</h2>
 
     <ul class='fields'>
@@ -58,24 +61,6 @@
         </select>
       </li>
     </ul>
-=======
-    <h2>Cadastro aluno</h2>
-    <label for='nome_aluno'>Nome</label><br>
-    <input type='text' id='nome_aluno' /><br>
-
-    <label for='serie_aluno'>Série</label><br>
-    <select id='serie_aluno'>
-      <option>Selecione</option>
-      <option value='1ª Série'>1ª Série</option>
-      <option value='2ª Série'>2ª Série</option>
-      <option value='3ª Série'>3ª Série</option>
-      <option value='4ª Série'>4ª Série</option>
-      <option value='5ª Série'>5ª Série</option>
-    </select><br>
-
-    <label for='valor_aluno'>Valor da Parcela (R$)</label><br>
-    <input disabled type='number' id='valor_aluno' /><br>
->>>>>>> origin/gh-pages
 
     <button id='cadastrar_aluno'>Cadastrar Aluno</button>
 
@@ -238,11 +223,7 @@
 
   <div id='bottom_bar'>
     <button onclick='calcular()'>Terminar</button>
-<<<<<<< HEAD
     <div style='display: inline-block'>Patrimônio Líquido: <span id='patrimLiq' class='money_value'>0</span></div>
-=======
-    <div style='display: inline-block'>Patrimônio Líquido: <span id='sit_liq_pat' class='money_value'>0</span></div>
->>>>>>> origin/gh-pages
   </div>
   <script src='js/index.js'></script>
 </body>
