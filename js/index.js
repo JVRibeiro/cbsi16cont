@@ -6,6 +6,7 @@
     Github: github.com/JVRibeiro
 */
 
+<<<<<<< HEAD
   var
   data =
   {
@@ -16,10 +17,106 @@
       _3: 5, _4: 5,
       _5: 5,
     },
+=======
+var data = {},
+
+    serie = {
+      1: 5,
+      2: 5,
+      3: 5,
+      4: 5,
+      5: 5
+    },
+
+    nome_aluno = document.querySelector( '#nome_aluno' ),
+    serie_aluno = document.querySelector( '#serie_aluno' ),
+    valor_aluno = document.querySelector( '#valor_aluno' ),
+    alunos_cadastrados = document.querySelector( '#alunos_cadastrados' ),
+
+    nome_bens = document.querySelector( '#nome_bens' ),
+    tipo_bens = document.querySelector( '#tipo_bens' ),
+    qtd_bens = document.querySelector( '#qtd_bens' ),
+    valor_bens = document.querySelector( '#valor_bens' ),
+    bens_cadastrados = document.querySelector( '#bens_cadastrados' ),
+
+    nome_cap = document.querySelector( '#nome_cap' ),
+    qtd_cap = document.querySelector( '#qtd_cap' ),
+    valor_cap = document.querySelector( '#valor_cap' ),
+    cap_cadastrados = document.querySelector( '#cap_cadastrados' ),
+
+    total_bens = 0,
+    total_alunos = 0,
+    total_cap = 0,
+
+    _cadastroAluno = window.localStorage.getItem( 'cadastro_aluno' ),
+    _cadastroBens = window.localStorage.getItem( 'cadastro_bens' ),
+    _cadastroCAP = window.localStorage.getItem( 'cadastro_cap' ),
+
+    _totalALunos = localStorage.getItem( 'total_alunos' ),
+    _totalBens = localStorage.getItem( 'total_bens' ),
+    _totalCap = localStorage.getItem( 'total_cap' );
+
+
+
+    // Carrega os dados salvos
+    $(document).ready(function ()
+    {
+      if ( _cadastroAluno != undefined ) data.aluno = JSON.parse(window.localStorage.getItem( 'cadastro_aluno' ));
+      if ( _cadastroBens ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
+      if ( _cadastroCAP ) cap_cadastrados.innerHTML = localStorage.getItem( 'cadastro_cap' );
+
+
+
+    if ( _totalALunos )
+    {
+      for (var i = 0; i < data.aluno.length; i++)
+      {
+        alunos_cadastrados.innerHTML +=
+           '<li>'
+           + '<div class="saved_nome"><span id="nome_aluno_value">' + data.aluno[i].nome + '</span></div>'
+           + '<div class="saved_serie">Série: <span id="serie_aluno_value">' + data.aluno[i].serie + '</span></div>'
+           + '<div class="saved_valor">Valor da parcela: <span id="valor_aluno_value" class="money_value">' + data.aluno[i].valor_parcela + '</span></div>'
+          + '</li>'
+      }
+
+      $( '#alunos_total' ).html( _totalALunos );
+      total_alunos = Number( _totalALunos );
+    }
+    if ( _totalBens )
+    {
+      $( '#bens_total' ).html( _totalBens );
+      total_bens = Number( _totalBens );
+    }
+    if ( _totalCap )
+    {
+      $( '#cap_total' ).html( _totalCap );
+      total_cap = Number( _totalCap );
+    }
+    });
+
+
+    // Event Listeners
+    $( '#serie_aluno' ).on( 'click', function ()
+    {
+      if ( serie_aluno.value === '1ª Série' ) valor_aluno.value = 190,00;
+      if ( serie_aluno.value === '2ª Série' ) valor_aluno.value = 280,00;
+      if ( serie_aluno.value === '3ª Série' ) valor_aluno.value = 400,00;
+      if ( serie_aluno.value === '4ª Série' ) valor_aluno.value = 460,00;
+      if ( serie_aluno.value === '5ª Série' ) valor_aluno.value = 530,00;
+      if ( serie_aluno.value === 'Selecione' )  valor_aluno.value = "";
+    });
+
+    $( '#cadastrar_aluno' ).on( 'click', function ()
+    {
+      cadastrar_aluno();
+      nome_aluno.focus();
+    });
+>>>>>>> origin/gh-pages
 
     // Métodos
     cadastrar_aluno: function ()
     {
+<<<<<<< HEAD
       if ( alunoNome.value != ''
         && alunoSerie.value != 'Selecione'
         && alunoVencimento.value != 'Selecione' )
@@ -100,10 +197,25 @@
         }
       }
     },
+=======
+      cadastrar_bens();
+      tipo_bens.focus();
+    });
+
+    $( '#cadastrar_cap' ).on( 'click', function ()
+    {
+      cadastrar_cap();
+      nome_cap.focus();
+    });
+
+    data.aluno = [];
+
+>>>>>>> origin/gh-pages
 
     // Cadastra o aluno no sistema
     add_aluno: function ()
     {
+<<<<<<< HEAD
       // Cria o objeto aluno
       data.aluno[data.aluno.length] = {};
       data.aluno[data.aluno.length - 1].nome = alunoNome.value;
@@ -129,6 +241,20 @@
         // Imprime a lista de alunos
         $( alunos_cadastrados )
         .append(
+=======
+      if ( nome_aluno.value !== ''
+        && serie_aluno.value !== ''
+        && valor_aluno.value !== ''
+        && data.aluno.length < 5 )
+      {
+        data.aluno[data.aluno.length] = {};
+        data.aluno[data.aluno.length - 1].nome = nome_aluno.value;
+        data.aluno[data.aluno.length - 1].serie = serie_aluno.value;
+        data.aluno[data.aluno.length - 1].valor_parcela = valor_aluno.value;
+
+
+        alunos_cadastrados.innerHTML +=
+>>>>>>> origin/gh-pages
            '<li>'
            + '<div class="saved_nome">'
            + '<span id="alunoNome_value">'
@@ -149,12 +275,16 @@
           + '</li>'
         );
 
+<<<<<<< HEAD
         $( alunoListaNome ).append(
           '<option>'
             + data.aluno[i].nome
           +'</option>'
         );
       }
+=======
+        localStorage.setItem( 'cadastro_aluno', JSON.stringify(data.aluno) );
+>>>>>>> origin/gh-pages
 
       // Salva os dados
       data.save.aluno();
@@ -164,12 +294,21 @@
       document.querySelector( '#alunos_total' ).innerHTML = total_alunos;
       window.localStorage.setItem( 'total_alunos', total_alunos );
 
+<<<<<<< HEAD
       // Limpa os campos
       alunoNome.value = '';
       alunoParcela.value = '';
       alunoSerie.value = 'Selecione';
       alunoVencimento.value = 'Selecione';
     },
+=======
+        $( '#alunos_total' ).html(total_alunos);
+        localStorage.setItem( 'total_alunos', total_alunos );
+      }
+      else if ( data.aluno.length > 5 ) alert( 'Limite de alunos atingido!' );
+      else alert( 'Você esqueceu um campo em branco!' );
+    }
+>>>>>>> origin/gh-pages
 
 /*
     cadastrar_bens: function ()
@@ -332,7 +471,12 @@
   {
     if ( _cadastroAluno != undefined )
     {
+<<<<<<< HEAD
       data.aluno = JSON.parse( _cadastroAluno );
+=======
+      $( '.page, .fixed_right' ).hide();
+      $( '#cadastro_aluno, #alunos_cadastrados_holder' ).fadeIn();
+>>>>>>> origin/gh-pages
     }
 
     alunos_cadastrados.innerHTML = '';
@@ -340,6 +484,7 @@
 
     for ( var i = 0; i < data.aluno.length; i++ )
     {
+<<<<<<< HEAD
       $( alunos_cadastrados ).append(
          '<li>'
          + '<div class="saved_nome">'
@@ -398,6 +543,10 @@
 
         console.log( data.aluno[i].nome + ' está INADIPLENTE.' );
       }
+=======
+      $( '.page, .fixed_right' ).hide();
+      $( '#cadastro_bens, #bens_cadastrados_holder' ).fadeIn();
+>>>>>>> origin/gh-pages
     }
 
 //    if ( _cadastroBens != undefined ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
@@ -405,8 +554,13 @@
 
     if ( _totalALunos != undefined )
     {
+<<<<<<< HEAD
       document.querySelector( '#alunos_total' ).innerHTML = _totalALunos;
       total_alunos = Number( _totalALunos );
+=======
+      $( '.page, .fixed_right' ).hide();
+      $( '#contas_pagar, #cap_cadastrados_holder' ).fadeIn();
+>>>>>>> origin/gh-pages
     }
 /*    if ( _totalBens != undefined )
     {
