@@ -7,6 +7,55 @@
 */
 
   var
+  periodoAtual,
+
+  // Cria variaveis para o controle de datas
+  date = new Date(),
+  d = date.getDate(),
+  m = date.getMonth(),
+  y = date.getFullYear(),
+  now = new Date( y, m, d ),
+
+// DOM
+  alunoNome = document.querySelector( '#alunoNome' ),
+  alunoListaNome = document.querySelector( '#alunoListaNome' ),
+  alunoSerie = document.querySelector( '#alunoSerie' ),
+  alunoParcela = document.querySelector( '#alunoParcela' ),
+  alunoVencimento = document.querySelector( '#alunoVencimento' ),
+  alunos_cadastrados = document.querySelector( '#alunos_cadastrados' ),
+  pagamentos_confirmados = document.querySelector( '#pagamentos_confirmados' ),
+
+  alunoListaNome = document.querySelector( '#alunoListaNome' ),
+/*
+  nome_bens = document.querySelector( '#nome_bens' ).value,
+  tipo_bens = document.querySelector( '#tipo_bens' ).value,
+  qtd_bens = document.querySelector( '#qtd_bens' ).value,
+  valor_bens = document.querySelector( '#valor_bens' ).value,
+  bens_cadastrados = document.querySelector( '#bens_cadastrados' ),*/
+  vagasDisp = document.querySelector( '#v_disp' ),
+/*
+  nome_cap = document.querySelector( '#nome_cap' ).value,
+  qtd_cap = document.querySelector( '#qtd_cap' ).value,
+  valor_cap = document.querySelector( '#valor_cap' ).value,
+  cap_cadastrados = document.querySelector( '#cap_cadastrados' ),
+*/
+  // total_bens = 0,
+  total_alunos = 0,
+  // total_cap = 0,
+
+// localStorage
+  _cadastroAluno = window.localStorage.getItem( 'cadastro_aluno' ),
+  _cadastroAlunoSelect = window.localStorage.getItem( 'cadastro_aluno' ),/*
+  _cadastroBens = window.localStorage.getItem( 'cadastro_bens' ),
+  _cadastroCAP = window.localStorage.getItem( 'cadastro_cap' ),*/
+
+  _vagasDisp = window.localStorage.getItem( 'series_int' ),
+
+  _totalALunos = localStorage.getItem( 'total_alunos' )/*,
+  _totalBens = localStorage.getItem( 'total_bens' ),
+  _totalCap = localStorage.getItem( 'total_cap' ),*/
+
+// Objeto de dados do programa
   data =
   {
     // Contador de vagas disponiveis para cada serie
@@ -18,6 +67,7 @@
     },
 
     // Métodos
+    // Cadastra o aluno no sistema
     cadastrar_aluno: function ()
     {
       if ( alunoNome.value != ''
@@ -106,22 +156,22 @@
     {
       // Cria o objeto aluno
       data.aluno[data.aluno.length] = {};
-      data.aluno[data.aluno.length - 1].nome = alunoNome.value;
+      data.aluno[data.aluno.length - 1].nome = alunoNome.value.toUpperCase();
       data.aluno[data.aluno.length - 1].serie = alunoSerie.value;
-      data.aluno[data.aluno.length - 1].parcela =
-      {
-        valor: Number( alunoParcela.value ),
-        vencimento: Number( alunoVencimento.value )
-      };
+      data.aluno[data.aluno.length - 1].parcela = {
+                                                    valor: Number( alunoParcela.value ),
+                                                    vencimento: Number( alunoVencimento.value )
+                                                  };
       data.aluno[data.aluno.length - 1].cadastro = Number( new Date() );
       data.aluno[data.aluno.length - 1].mes_atrasado = [];
+      data.aluno[data.aluno.length - 1].mes_pago = [];
 
       // Limpa a lista de alunos antes de atualiza-la
       alunos_cadastrados.innerHTML = '';
       alunoListaNome.innerHTML = '';
 
       // Atualiza a lista de alunos
-      for ( var i = 0; i < data.aluno.length; i++ )
+      for ( var i in data.aluno )
       {
         // Organiza os nomes em ordem alfabetica
         data.aluno.sort( dynamicSort( 'nome' ) );
@@ -234,31 +284,39 @@
       else alert( 'Você esqueceu um campo em branco!' );
     },
 */
+
+    // Abre uma página específica do programa
+    showPage: function ( pageSelector ) // @param CSS Selector
+    {
+      if ( !$( pageSelector ).is( ':visible' ) )
+      {
+        $( '.page' )
+        .fadeOut();
+
+        $( pageSelector )
+        .show( 'folder' );
+      }
+    },
+
     // Abre a página de cadastro de alunos
     show_cadastro_aluno: function ()
     {
-      $( '.page, .fixed_right' )
-      .hide();
-
-      $( '#cadastro_aluno, #alunos_cadastrados_holder' )
-      .fadeIn();
+      data.showPage( '#cadastro_aluno' );
     },
 
     // Abre a página de controle de pagamentos
     show_controle_pagam: function ()
     {
-      $( '.page, .fixed_right' )
-      .hide();
-
-      $( '#controle_pagamentos, #pagamentos_confirmados_holder' )
-      .fadeIn();
+      data.showPage( '#controle_pagamentos' );
+      $( '.ui-combobox input' )
+      .attr( 'placeholder','digite o nome...' )
     },
 
 /*
     show_cadastro_bens: function ()
     {
-      $( '.page, .fixed_right' )
-      .hide();
+      document.querySelector( '.page, .fixed_right' )
+      .style.display = 'none';
 
       $( '#cadastro_bens, #bens_cadastrados_holder' )
       .fadeIn();
@@ -266,8 +324,8 @@
 
     show_cadastro_cap: function ()
     {
-      $( '.page, .fixed_right' )
-      .hide();
+      document.querySelector( '.page, .fixed_right' )
+      .style.display = 'none';
 
       $( '#contas_pagar, #cap_cadastrados_holder' )
       .fadeIn();
@@ -287,47 +345,16 @@
         window.localStorage.setItem( 'cadastro_aluno', JSON.stringify( data.aluno ) );
       }
     }
-  },
+  };
 
-// DOM
-  alunoNome = document.querySelector( '#alunoNome' ),
-  alunoSerie = document.querySelector( '#alunoSerie' ),
-  alunoParcela = document.querySelector( '#alunoParcela' ),
-  alunoVencimento = document.querySelector( '#alunoVencimento' ),
-  alunos_cadastrados = document.querySelector( '#alunos_cadastrados' ),
 
-  alunoListaNome = document.querySelector( '#alunoListaNome' ),
-/*
-  nome_bens = document.querySelector( '#nome_bens' ).value,
-  tipo_bens = document.querySelector( '#tipo_bens' ).value,
-  qtd_bens = document.querySelector( '#qtd_bens' ).value,
-  valor_bens = document.querySelector( '#valor_bens' ).value,
-  bens_cadastrados = document.querySelector( '#bens_cadastrados' ),
-  vagasDisp = document.querySelector( '#v_disp' ),
 
-  nome_cap = document.querySelector( '#nome_cap' ).value,
-  qtd_cap = document.querySelector( '#qtd_cap' ).value,
-  valor_cap = document.querySelector( '#valor_cap' ).value,
-  cap_cadastrados = document.querySelector( '#cap_cadastrados' ),
-*/
-//  total_bens = 0,
-  total_alunos = 0,
-//  total_cap = 0,
-
-  _cadastroAluno = window.localStorage.getItem( 'cadastro_aluno' ),
-  _cadastroAlunoSelect = window.localStorage.getItem( 'cadastro_aluno' ),
-//  _cadastroBens = window.localStorage.getItem( 'cadastro_bens' ),
-//  _cadastroCAP = window.localStorage.getItem( 'cadastro_cap' ),
-
-  _vagasDisp = window.localStorage.getItem( 'series_int' ),
-
-  _totalALunos = localStorage.getItem( 'total_alunos' )/*,
-  _totalBens = localStorage.getItem( 'total_bens' ),
-  _totalCap = localStorage.getItem( 'total_cap' )*/;
-
+  // Cria uma array para armazenar os dados dos alunos
   data.aluno = [];
 
-  // Carrega os dados salvos
+  periodoAtual = y + '-' + ( m + 1 );
+
+  // Carrega os dados salvos na inicializacao
   $( document ).ready( function ()
   {
     if ( _cadastroAluno != undefined )
@@ -338,8 +365,9 @@
     alunos_cadastrados.innerHTML = '';
     alunoListaNome.innerHTML = '';
 
-    for ( var i = 0; i < data.aluno.length; i++ )
+    for ( var i in data.aluno ) // Busca todos os alunos cadastrados
     {
+      // Imprime os alunos na lista
       $( alunos_cadastrados ).append(
          '<li>'
          + '<div class="saved_nome">'
@@ -361,6 +389,7 @@
         + '</li>'
       );
 
+      // Adiciona os alunos no indice de busca
       $( alunoListaNome ).append(
         '<option>'
           + data.aluno[i].nome
@@ -369,36 +398,62 @@
 
 
 
-      var date = new Date(),
-          d = date.getDate(),
-          m = date.getMonth(),
-          y = date.getFullYear(),
-          now = new Date( y, m, d ),
-          a = Number( now ),
-          b = Number( new Date(y, m, data.aluno[i].parcela.vencimento) );
+      var a = Number( now ),
+          b = Number( new Date( y, m, data.aluno[i].parcela.vencimento ) );
 
-
-
-      if ( a < b )
+      // Se não houverem pendencias
+      if ( data.aluno[i].mes_atrasado.length == 0 )
       {
         data.aluno[i].situacao = 'REGULARIZADO';
-        console.log( data.aluno[i].nome + ' está REGULARIZADO.' );
+
+        // Imprime os alunos na lista
+        $( pagamentos_confirmados ).append(
+           '<li>'
+           + '<div class="saved_nome" title="' + data.aluno[i].nome + '">'
+           + '<span id="alunoNome_value">'
+              + data.aluno[i].nome
+           + '</span></div>'
+           + '<div class="saved_serie">'
+           + '<span id="alunoSerie_value">'
+              + data.aluno[i].serie
+           + '</span></div>'
+           + '<div class="saved_valor">'
+           + 'Valor da parcela: <span id="alunoParcela_value" class="money_value">'
+              + data.aluno[i].parcela.valor
+           + '</span></div>'
+          + '</li>'
+        );
+
+        //console.log( data.aluno[i].nome + ' está REGULARIZADO.' );
       }
-      else if ( a === b )
+      else if ( a == b )
       {
         data.aluno[i].situacao = 'REGULARIZADO';
-        console.log( data.aluno[i].nome + ' VENCE HOJE.' );
+        //console.log( data.aluno[i].nome + ' VENCE HOJE.' );
       }
       else if ( a > b || data.aluno[i].mes_atrasado.length > 0 )
       {
+        var arr = data.aluno[i].mes_atrasado,
+            index = arr.indexOf( y + '-' + ( m + 1 ) );
+
+        data.aluno[i].mes_atrasado.push( y + '-' + ( m + 1 ) );
+        data.aluno[i].mes_atrasado.sort();
+
         data.aluno[i].situacao = 'INADIPLENTE';
 
-        data.aluno[i].mes_atrasado.push( y + '/' + (m + 1) );
-//      data.save.aluno();
+        if ( index > -1 )
+        {
+          array.splice( index, 1 );
+          console.log( data.aluno[i].mes_atrasado[index] + ' removido' );
+        }
 
-        console.log( data.aluno[i].nome + ' está INADIPLENTE.' );
+        data.save.aluno();
+
+        //console.log( data.aluno[i].nome + ' está INADIPLENTE.' );
       }
     }
+
+
 
 //    if ( _cadastroBens != undefined ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
 //    if ( _cadastroCAP != undefined ) cap_cadastrados.innerHTML = localStorage.getItem( 'cadastro_cap' );
@@ -496,7 +551,59 @@
     }
     return function ( a, b )
     {
-      var result = ( a[property] < b[property] ) ? -1 : ( a[property] > b[property] ) ? 1 : 0;
+      var result =
+      ( a[ property ] < b[ property ] ) ? -1
+      : ( a[ property ] > b[ property ] )
+      ? 1 : 0;
       return result * sortOrder;
+    }
+  }
+
+
+
+
+  function searchClientData ()
+  {
+    var selected = alunoListaNome.value;
+
+    $( '#client_atrasadas div' ).html( '' );
+
+    for ( var i in data.aluno )
+    {
+      if ( data.aluno[i].nome === selected )
+      {
+        $( '#client_resume div' ).html(
+          'Nome: <strong>'
+            + data.aluno[i].nome
+          + '</strong><br>'
+          + 'Série: <strong>'
+            + data.aluno[i].serie
+          + '</strong><br>'
+          + 'Valor da parcela: <strong><span class="money_value">'
+            + data.aluno[i].parcela.valor
+          + '</span></strong><br>'
+          + 'Data de cadastro: <strong>'
+            + new Date(data.aluno[i].cadastro).toLocaleString()
+          + '</strong><br>'
+          + 'Situação: <strong>'
+            + data.aluno[i].situacao
+          + '</strong><br>'
+          + 'Atrasos: <strong>'
+            + data.aluno[i].mes_atrasado.length
+          + '</strong><br>'
+        );
+
+        for ( var j in data.aluno[i].mes_atrasado )
+        {
+          if ( data.aluno[i].mes_atrasado.length > 0 )
+          {
+            $( '#client_atrasadas div' ).append(
+              'Mês: <strong>'
+                + data.aluno[i].mes_atrasado[j]
+              + '</strong><br>'
+            );
+          }
+        }
+      }
     }
   }

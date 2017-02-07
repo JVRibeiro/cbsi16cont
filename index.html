@@ -31,7 +31,7 @@
     <ul class='fields'>
       <li>
         <label for='alunoNome'>Nome</label><br>
-        <input type='text' id='alunoNome' autofocus />
+        <input type='text' id='alunoNome' placeholder='digite o nome...' autofocus />
       </li>
 
       <li>
@@ -92,31 +92,39 @@
 
     <ul class='fields'>
       <li>
-        <label for='alunoListaNome'>Nome do aluno (nome ou sobrenome)</label><br>
+        <label for='alunoListaNome'>Procurar aluno</label><br>
         <select id='alunoListaNome'></select>
-        <button id='alunoListaNome_select'>Selecionar</button>
+        <button id='alunoListaNome_select' onclick='searchClientData ()'>Selecionar</button>
       </li>
+
+
+      <center>
+        <div class='client_info' id='client_resume'>
+          <h2>Resumo do cliente</h2>
+          <div>
+            <center>
+              <strong>Selecione um cliente</strong>
+            </center>
+          </div>
+          <button id='controle_pagamentos_confirm'>Confirmar pagamento</button>
+        </div>
+
+        <div class='client_info' id='client_atrasadas'>
+          <h2>Parcelas atrasadas</h2>
+          <div>
+            <center>
+              <strong>Selecione um cliente</strong>
+            </center>
+          </div>
+          <button id='controle_pagamentos_confirm'>Confirmar pagamento</button>
+        </div>
+      <center>
     </ul>
 
-    <center>
-      <div class='client_info'>
-        <h2>Resumo do cliente</h2>
-        <div>
-          Nome: JOAO VICTOR CUIMAR RIBEIRO<br>
-          Série: 1 Série<br>
-          Valor da parcela: R$ 190,00<br>
-          Data de cadastro: 02/06/2017<br>
-          Situação: Regularizado<br>
-        </div>
-        <button id='controle_pagamentos_confirm'>Confirmar pagamento</button>
-      </div>
-    </center>
-
-
     <div id='pagamentos_confirmados_holder' class='fixed_right'>
-      <h2>Pagamento Confirmados</h2>
+      <h2>Clientes em dia</h2>
 
-      <ul id='alunos_cadastrados'></ul>
+      <ul id='pagamentos_confirmados'></ul>
 
       <div class='fixed_right_total'>
         <div class='fixed_right_total_text'>Total</div>
