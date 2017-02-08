@@ -18,6 +18,7 @@
 
 
 <div id='navbar'>
+  <span id='currentTime'>Carregando...</span> | Periodo Atual: <span id='currentPeriod'>Carregando...</span>
   <button onclick='localStorage.clear(); document.location.reload();'>Zerar dados e reiniciar</button>
   <button onclick='data.show_cadastro_aluno()'>cadastro_aluno</button>
   <button onclick='data.show_controle_pagam()'>controle_pagam</button>
@@ -90,14 +91,11 @@
   <div id='controle_pagamentos' class='page no-display'>
     <h2>Pagamentos</h2>
 
-    <ul class='fields'>
-      <li>
-        <label for='alunoListaNome'>Procurar aluno</label><br>
+      <div class='searchBox'>
         <select id='alunoListaNome'></select>
         <button id='alunoListaNome_select' onclick='searchClientData ()'>Selecionar</button>
-      </li>
-
-
+      </div>
+<div class='fields'>
       <center>
         <div class='client_info' id='client_resume'>
           <h2>Resumo do cliente</h2>
@@ -116,11 +114,9 @@
               <strong>Selecione um cliente</strong>
             </center>
           </div>
-          <button id='controle_pagamentos_confirm'>Confirmar pagamento</button>
         </div>
       <center>
-    </ul>
-
+</div>
     <div id='pagamentos_confirmados_holder' class='fixed_right'>
       <h2>Clientes em dia</h2>
 

@@ -162,7 +162,20 @@
                                                     valor: Number( alunoParcela.value ),
                                                     vencimento: Number( alunoVencimento.value )
                                                   };
-      data.aluno[data.aluno.length - 1].cadastro = Number( new Date() );
+      data.aluno[data.aluno.length - 1].cadastro = {
+                                                    data: Number( date ),
+                                                    data_formatada: date.toLocaleDateString(),
+                                                    dia: d,
+                                                    mes: m,
+                                                    ano: y
+                                                    };
+      data.aluno[data.aluno.length - 1].inclusao = {
+                                                    data: Number( new Date( y, m + 1, 1 ) ),
+                                                    data_formatada: new Date( y, m + 1, 1 ).toLocaleDateString(),
+                                                    dia: 1,
+                                                    mes: m + 1,
+                                                    ano: y
+                                                    };
       data.aluno[data.aluno.length - 1].mes_atrasado = [];
       data.aluno[data.aluno.length - 1].mes_pago = [];
 
@@ -398,8 +411,8 @@
 
 
 
-      var a = Number( now ),
-          b = Number( new Date( y, m, data.aluno[i].parcela.vencimento ) );
+      var hoje = Number( now ),
+          vencimento = Number( new Date( y, m, data.aluno[i].parcela.vencimento ) );
 
       // Se não houverem pendencias
       if ( data.aluno[i].mes_atrasado.length == 0 )
@@ -424,35 +437,38 @@
           + '</li>'
         );
 
-        //console.log( data.aluno[i].nome + ' está REGULARIZADO.' );
+        console.log( data.aluno[i].nome + ' está REGULARIZADO.' );
       }
-      else if ( a == b )
+
+      if ( hoje == vencimento )
       {
         data.aluno[i].situacao = 'REGULARIZADO';
-        //console.log( data.aluno[i].nome + ' VENCE HOJE.' );
+        console.log( data.aluno[i].nome + ' VENCE HOJE.' );
       }
-      else if ( a > b || data.aluno[i].mes_atrasado.length > 0 )
+
+      if ( hoje > vencimento && m >= data.aluno[i].inclusao.mes )
       {
         var arr = data.aluno[i].mes_atrasado,
-            index = arr.indexOf( y + '-' + ( m + 1 ) );
+            index = arr.indexOf( y + '-' + m );
 
-        data.aluno[i].mes_atrasado.push( y + '-' + ( m + 1 ) );
+        data.aluno[i].mes_atrasado.push( y + '-' + m );
         data.aluno[i].mes_atrasado.sort();
 
         data.aluno[i].situacao = 'INADIPLENTE';
 
         if ( index > -1 )
         {
-          array.splice( index, 1 );
-          console.log( data.aluno[i].mes_atrasado[index] + ' removido' );
+          arr.splice( index, 1 );
+          console.log( data.aluno[i].mes_atrasado[index] + ' repetido removido' );
         }
 
         data.save.aluno();
 
-        //console.log( data.aluno[i].nome + ' está INADIPLENTE.' );
+        console.log( data.aluno[i].nome + ' está INADIPLENTE.' );
       }
     }
 
+    console.log( JSON.stringify( data.aluno ) );
 
 
 //    if ( _cadastroBens != undefined ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
@@ -478,6 +494,17 @@
     {
       data.serie_count = JSON.parse( _vagasDisp );
     }
+
+
+    setInterval(function ()
+    {
+      var d = new Date();
+      document.querySelector( '#currentTime' )
+      .innerHTML = d.toLocaleString();
+
+      document.querySelector( '#currentPeriod' )
+      .innerHTML = periodoAtual;
+    }, 1000);
   });
 
 
@@ -566,7 +593,7 @@
   {
     var selected = alunoListaNome.value;
 
-    $( '#client_atrasadas div' ).html( '' );
+    $( '#client_atrasadas div' ).html( '<ul></ul>' );
 
     for ( var i in data.aluno )
     {
@@ -583,7 +610,7 @@
             + data.aluno[i].parcela.valor
           + '</span></strong><br>'
           + 'Data de cadastro: <strong>'
-            + new Date(data.aluno[i].cadastro).toLocaleString()
+            + data.aluno[i].cadastro.data_formatada
           + '</strong><br>'
           + 'Situação: <strong>'
             + data.aluno[i].situacao
@@ -597,10 +624,22 @@
         {
           if ( data.aluno[i].mes_atrasado.length > 0 )
           {
-            $( '#client_atrasadas div' ).append(
-              'Mês: <strong>'
+            $( '#client_atrasadas div ul' ).append(
+              '<li>'
+              + 'Período: <strong>'
                 + data.aluno[i].mes_atrasado[j]
-              + '</strong><br>'
+              + '</strong> '
+              + '<button id="" '
+              + 'onclick="'
+                + 'var arr=data.aluno['+i+'].mes_atrasado,'
+                + 'index=arr.indexOf(\''+data.aluno[i].mes_atrasado[j]+'\');'
+                + 'if(index>-1){'
+                + 'console.log(data.aluno['+i+'].mes_atrasado[index]+\' removido\');'
+                + 'arr.splice(index,1);'
+                + '$(this).parent().remove();'
+                + '}'
+                + '">Confirmar pagamento</button><br>'
+              + '</li>'
             );
           }
         }

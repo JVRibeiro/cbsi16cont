@@ -1,4 +1,5 @@
 body {
+    background: #6fa1ff;
     font-family: sans-serif;
     overflow: hidden;
 }
@@ -43,8 +44,9 @@ input:focus, select:focus {
 }
 
 .fields {
-    height: calc(100% - 105px);
+    height: calc(100% - 160px);
     background-color: #f0f0f0;
+    border-bottom: 1px solid #d2d2d2;
     list-style: none;
     padding: 0;
     padding-top: 30px;
@@ -66,11 +68,10 @@ input:focus, select:focus {
 #navbar {
     width: 100%;
     height: 50px;
-    background-color: #acc9ff;
+    background-color: #6fa1ff;
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 3;
 }
 
@@ -91,7 +92,7 @@ input:focus, select:focus {
     width: calc(100% - 300px);
     height: calc(100% - 100px);
     background-color: #fff;
-    overflow: hidden;
+    /* overflow: hidden; */
     text-align: center;
 }
 
@@ -113,7 +114,8 @@ input:focus, select:focus {
     width: 300px;
     height: 100%;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 30px 0 0 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     z-index: 2;
 }
 
@@ -192,11 +194,33 @@ input:focus, select:focus {
     max-width: 100%;
     text-align: left;
     line-height: 25px;
-    background-color: #fff;
+    background-color: #eaeaea;
     border: 1px solid #e3e3e3;
     display: table-cell;
 }
 
 .client_info div {
     padding: 15px;
+}
+
+
+.searchBox {
+    position: absolute;
+    top: 10px;
+    left: 170px;
+}
+
+
+#client_atrasadas div ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+#client_atrasadas div ul li {
+    border-left: 4px solid #ff7635;
+    padding: 10px;
+    margin-left: -10px;
+    border-radius: 0;
+    width: calc(100% - 10px);
 }
