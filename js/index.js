@@ -565,6 +565,37 @@
     nome_cap.focus();
   });
 */
+  $( '#menu_btn' ).on( 'click', function ()
+  {
+    if ( !$( '#menu_btn' ).hasClass( 'is-active' ) )
+    {
+      $( '#menu_btn' )
+      .addClass( 'is-active' );
+
+      $( '#menu' )
+      .removeClass('menu-closed')
+      .addClass( 'menu-open' );
+    }
+    else
+    {
+      $( '#menu_btn' )
+      .removeClass( 'is-active' );
+
+      $( '#menu' )
+      .removeClass('menu-open')
+      .addClass( 'menu-closed' );
+    }
+  });
+
+  $( '#menu ul li' ).on( 'click', function ()
+  {
+    $( '#menu_btn' )
+    .removeClass( 'is-active' );
+
+    $( '#menu' )
+    .removeClass('menu-open')
+    .addClass( 'menu-closed' );
+  });
 
 
 // Funções
