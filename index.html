@@ -43,13 +43,13 @@
   <div id='cadastro_aluno' class='page'>
     <h2>Cadastrar Aluno</h2>
 
-    <ul class='fields'>
-      <li>
+    <div class='fields'>
+      <div class='cadastro_aluno_fields'>
         <label for='alunoNome'>Nome</label><br>
         <input type='text' id='alunoNome' placeholder='digite o nome...' autofocus />
-      </li>
+      </div>
 
-      <li>
+      <div class='cadastro_aluno_fields'>
         <label for='alunoSerie'>Série (vagas: <span id='v_disp'>selecione</span>)</label><br>
         <select id='alunoSerie'>
           <option>Selecione</option>
@@ -59,14 +59,14 @@
           <option value='4ª Série'>4ª Série • R$ 460,00 / mês</option>
           <option value='5ª Série'>5ª Série • R$ 530,00 / mês</option>
         </select>
-      </li>
+      </div>
 
-      <li style='display: none !important'>
+      <div style='display: none !important'>
         <label for='alunoParcela'>Valor da Parcela (R$)</label><br>
         <input disabled type='number' id='alunoParcela' /><br>
-      </li>
+      </div>
 
-      <li>
+      <div class='cadastro_aluno_fields'>
         <label for='alunoVencimento'>Vencimento</label><br>
         <select id='alunoVencimento'>
           <option>Selecione</option>
@@ -74,8 +74,8 @@
           <option value='5'>5</option>
           <option value='10'>10</option>
         </select>
-      </li>
-    </ul>
+      </div>
+    </div>
 
     <button id='cadastrar_aluno'>Cadastrar Aluno</button>
 
@@ -87,7 +87,7 @@
       <ul id='alunos_cadastrados'></ul>
 
       <div class='fixed_right_total'>
-        <div class='fixed_right_total_text'>Total</div>
+        <div class='fixed_right_total_text'>Total estimado por mês</div>
         <div id='alunos_total' class='fixed_right_total_amount money_value'>0</div>
       </div>
 
@@ -109,36 +109,33 @@
         <select id='alunoListaNome'></select>
         <button id='alunoListaNome_select' onclick='searchClientData ()'>Selecionar</button>
       </div>
-<div class='fields'>
-      <center>
-        <div class='client_info' id='client_resume'>
-          <h2>Resumo do cliente</h2>
-          <div>
-            <center>
-              <strong>Selecione um cliente</strong>
-            </center>
-          </div>
-          <button id='controle_pagamentos_confirm'>Confirmar pagamento</button>
-        </div>
 
-        <div class='client_info' id='client_atrasadas'>
-          <h2>Parcelas atrasadas</h2>
-          <div>
-            <center>
+      <div class='fields'>
+        <center>
+          <div class='client_info' id='client_resume'>
+            <h2>Resumo do cliente</h2>
+            <div>
               <strong>Selecione um cliente</strong>
-            </center>
+            </div>
           </div>
-        </div>
-      <center>
-</div>
+
+          <div class='client_info' id='client_atrasadas'>
+            <h2>Parcelas a receber</h2>
+            <div></div>
+          </div>
+        <center>
+      </div>
+      
     <div id='pagamentos_confirmados_holder' class='fixed_right'>
       <h2>Clientes em dia</h2>
-
       <ul id='pagamentos_confirmados'></ul>
 
+      <h2>Clientes inadiplentes</h2>
+      <ul id='pagamentos_nao_confirmados'></ul>
+
       <div class='fixed_right_total'>
-        <div class='fixed_right_total_text'>Total</div>
-        <div id='alunos_total' class='fixed_right_total_amount money_value'>0</div>
+        <div class='fixed_right_total_text'>Total de parcelas pagas</div>
+        <div id='alunos_total_pago' class='fixed_right_total_amount money_value'>0</div>
       </div>
 
     </div>

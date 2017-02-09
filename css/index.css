@@ -34,13 +34,20 @@ input, select {
     border-bottom: 4px solid #6fa1ff;
     font-size: 12pt;
     text-transform: uppercase;
-    margin-bottom: 20px;
     transition: .5s ease;
     outline: none;
 }
 
 input:focus, select:focus {
-    box-shadow: 0 0 20px #639ef7;
+    box-shadow: 0 0 20px #a9a9a9;
+}
+
+#alunoNome {
+    width: 70%;
+}
+
+#alunoListaNome {
+    width: 70%;
 }
 
 .fields {
@@ -50,7 +57,10 @@ input:focus, select:focus {
     list-style: none;
     padding: 0;
     padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
     margin: 0;
+    text-align: left;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -63,6 +73,13 @@ input:focus, select:focus {
     border-radius: 10px;
     border: 1px solid #e3e3e3;
     text-align: left;
+}
+
+.fields .cadastro_aluno_fields {
+    border: 1px solid #e3e3e3;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 5px;
 }
 
 #navbar {
@@ -124,7 +141,7 @@ input:focus, select:focus {
 .fixed_right h2 {
     padding: 20px;
     margin: 0;
-    background-color: #83a6e6;
+    background-color: #6c97e4;
     color: #fff;
     text-align: left;
     font-family: Segoe UI Light, Arial;
@@ -135,10 +152,11 @@ input:focus, select:focus {
     margin: 0;
     margin-top: 5px;
     padding: 0;
-    max-height: calc(100% - 180px);
-    min-height: calc(100% - 180px);
+    max-height: calc(50% - 127px);
+    min-height: calc(50% - 127px);
     overflow: hidden;
     overflow-y: scroll;
+    user-select: none;
 }
 
 .fixed_right ul li {
@@ -153,7 +171,13 @@ input:focus, select:focus {
     margin-left: 5px;
     margin-right: 5px;
     text-align: left;
+    transition: .2s ease;
+    cursor: pointer;
 }
+
+.fixed_right ul li:hover {box-shadow: 0 0 20px #a5a5a5;}
+
+.fixed_right ul li:active {transform: scale(.98);}
 
 .fixed_right ul li .saved_nome {
     text-transform: uppercase;
@@ -197,7 +221,8 @@ input:focus, select:focus {
     text-align: left;
     line-height: 25px;
     background-color: #eaeaea;
-    border: 1px solid #e3e3e3;
+    border: none;
+    border-bottom: 1px solid #e3e3e3;
     display: table-cell;
 }
 
@@ -209,6 +234,7 @@ input:focus, select:focus {
     position: absolute;
     top: 10px;
     left: 170px;
+    width: 75%;
 }
 
 #client_atrasadas div ul {
@@ -223,17 +249,19 @@ input:focus, select:focus {
     margin-left: -10px;
     border-radius: 0;
     width: calc(100% - 10px);
+    min-width: 368px;
 }
 
 #menu {
     width: 300px;
-    height: calc(100% - 100px);
+    height: calc(100% - 110px);
     position: fixed;
     top: 60px;
     left: 0;
     background-color: rgba(111, 161, 255, 0.96);
     transition: .3s ease;
     z-index: 1;
+    border-radius: 0 30px 0 0;
 }
 
 .menu-open {
