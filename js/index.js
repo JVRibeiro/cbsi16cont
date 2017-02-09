@@ -28,11 +28,11 @@
   pagamentos_nao_confirmados = document.querySelector( '#pagamentos_nao_confirmados' ),
 
   alunoListaNome = document.querySelector( '#alunoListaNome' ),
-/*
-  nome_bens = document.querySelector( '#nome_bens' ).value,
-  tipo_bens = document.querySelector( '#tipo_bens' ).value,
-  qtd_bens = document.querySelector( '#qtd_bens' ).value,
-  valor_bens = document.querySelector( '#valor_bens' ).value,
+
+  nome_bens = document.querySelector( '#nome_bens' ),
+  tipo_bens = document.querySelector( '#tipo_bens' ),
+  qtd_bens = document.querySelector( '#qtd_bens' ),
+  valor_bens = document.querySelector( '#valor_bens' ),/*
   bens_cadastrados = document.querySelector( '#bens_cadastrados' ),*/
   vagasDisp = document.querySelector( '#v_disp' ),
 /*
@@ -41,20 +41,20 @@
   valor_cap = document.querySelector( '#valor_cap' ).value,
   cap_cadastrados = document.querySelector( '#cap_cadastrados' ),
 */
-  // total_bens = 0,
+  total_bens = 0,
   total_alunos = 0,
   // total_cap = 0,
 
 // localStorage
   _cadastroAluno = window.localStorage.getItem( 'cadastro_aluno' ),
-  _cadastroAlunoSelect = window.localStorage.getItem( 'cadastro_aluno' ),/*
-  _cadastroBens = window.localStorage.getItem( 'cadastro_bens' ),
+  _cadastroAlunoSelect = window.localStorage.getItem( 'cadastro_aluno' ),
+  _cadastroBens = window.localStorage.getItem( 'cadastro_bens' ),/*
   _cadastroCAP = window.localStorage.getItem( 'cadastro_cap' ),*/
 
   _vagasDisp = window.localStorage.getItem( 'series_int' ),
 
-  _totalALunos = localStorage.getItem( 'total_alunos' )/*,
-  _totalBens = localStorage.getItem( 'total_bens' ),
+  _totalALunos = localStorage.getItem( 'total_alunos' ),
+  _totalBens = localStorage.getItem( 'total_bens' ),/*
   _totalCap = localStorage.getItem( 'total_cap' ),*/
 
 // Objeto de dados do programa
@@ -241,22 +241,21 @@
       alunoVencimento.value = 'Selecione';
     },
 
-/*
+
     cadastrar_bens: function ()
     {
-      if ( nome_bens !== ''
-        && tipo_bens !== 'Selecione'
-        && qtd_bens !== ''
-        && valor_bens !== '' )
+      if ( nome_bens.value !== ''
+        && tipo_bens.value !== 'Selecione'
+        && qtd_bens.value !== ''
+        && valor_bens.value !== '' )
       {
-        valor_bens = valor_bens * qtd_bens;
         bens_cadastrados.innerHTML +=
            '<li>'
-           + '<div class="saved_1">Tipo do bem: <span id="tipo_bens_value">' + tipo_bens + '</span></div>'
-           + '<div class="saved_1">Nome do bem: <span id="nome_bens_value">' + nome_bens + '</span></div>'
-           + '<div class="saved_1">Quantidade: <span id="qtd_bens_value">' + qtd_bens + '</span></div>'
-           + '<div class="saved_2">Valor Unitário: <span id="valor_unit_bens_value"  class="money_value">' + valor_bens + '</span></div>'
-           + '<div class="saved_2">Valor Total: <span id="valor_bens_value" class="money_value">' + qtd_bens * valor_bens + '</span></div>'
+           + '<div class="saved_1">Tipo do bem: <span id="tipo_bens_value">' + tipo_bens.value + '</span></div>'
+           + '<div class="saved_1">Nome do bem: <span id="nome_bens_value">' + nome_bens.value + '</span></div>'
+           + '<div class="saved_1">Quantidade: <span id="qtd_bens_value">' + qtd_bens.value + '</span></div>'
+           + '<div class="saved_2">Valor Unitário: <span id="valor_unit_bens_value"  class="money_value">' + valor_bens.value + '</span></div>'
+           + '<div class="saved_2">Valor Total: <span id="valor_bens_value" class="money_value">' + qtd_bens.value * valor_bens.value + '</span></div>'
           + '</li>'
 
         localStorage.setItem( 'cadastro_bens', bens_cadastrados.innerHTML );
@@ -273,7 +272,7 @@
       }
       else alert( 'Você esqueceu um campo em branco!' );
     },
-
+/*
     cadastrar_cap: function ()
     {
       if ( nome_cap !== ''
@@ -329,20 +328,17 @@
     {
       data.showPage( '#controle_pagamentos' );
       $( '.ui-combobox input' )
-      .attr( 'placeholder','digite o nome...' );
+      .attr( 'placeholder','digite o nome...' )
+      .focus();
       calcTotalPago();
     },
 
-/*
     show_cadastro_bens: function ()
     {
-      document.querySelector( '.page, .fixed_right' )
-      .style.display = 'none';
-
-      $( '#cadastro_bens, #bens_cadastrados_holder' )
-      .fadeIn();
+      data.showPage( '#cadastro_bens' );
+      tipo_bens.focus();
     },
-
+/*
     show_cadastro_cap: function ()
     {
       document.querySelector( '.page, .fixed_right' )
@@ -624,12 +620,12 @@
     data.cadastrar_aluno();
   });
 
-/*  $( '#cadastrar_bens' ).on( 'click', function ()
+  $( '#cadastrar_bens' ).on( 'click', function ()
   {
     data.cadastrar_bens();
     tipo_bens.focus();
   });
-
+/*
   $( '#cadastrar_cap' ).on( 'click', function ()
   {
     data.cadastrar_cap();
