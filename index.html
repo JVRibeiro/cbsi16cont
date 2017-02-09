@@ -25,7 +25,7 @@
     </span>
   </button>
 
-  <h2>ImproviSoft</h2>
+  <h2>ImproviSoft <small>¯\_(ツ)_/¯</small></h2>
 
   <div style='float: right;margin-right: 30px;margin-top: 10px;'>
     <span id='currentTime' style="padding: 10px;background-color: #5e90ef;">Carregando...</span>
@@ -154,31 +154,31 @@
   <div id='cadastro_bens' class='page no-display'>
     <h2>Cadastro bens</h2>
 
-    <ul class='fields'>
-      <li>
+    <div class='fields'>
+      <div class='cadastro_aluno_fields'>
         <label for='tipo_bens'>Tipo</label><br>
         <select id='tipo_bens' name='Série'>
           <option>Selecione</option>
           <option value='Móvel'>Móvel</option>
           <option value='Imóvel'>Imóvel</option>
         </select>
-      </li>
+      </div>
 
-      <li>
+      <div class='cadastro_aluno_fields'>
         <label for='nome_bens'>Nome do bem</label><br>
         <input type='text' id='nome_bens' /><br>
-      </li>
+      </div>
 
-      <li>
+      <div class='cadastro_aluno_fields'>
         <label for='qtd_bens'>Quantidade</label><br>
         <input type='number' id='qtd_bens' /><br>
-      </li>
+      </div>
 
-      <li>
+      <div class='cadastro_aluno_fields'>
         <label for='valor_bens'>Valor Unitário (R$)</label><br>
         <input type='number' id='valor_bens' /><br>
-      </li>
-    </ul>
+      </div>
+    </div>
 
     <button id='cadastrar_bens'>Incluir Bem</button>
 
@@ -214,15 +214,23 @@
 
   <div id='contas_pagar' class='page no-display'>
     <h2>Obrigações</h2>
-    <label for='nome_cap'>Descrição</label><br>
-    <input type='text' id='nome_cap' /><br>
 
-    <label for='qtd_cap'>Quantidade</label><br>
-    <input type='number' id='qtd_cap' /><br>
+    <div class='fields'>
+      <div class='cadastro_aluno_fields'>
+        <label for='nome_cap'>Descrição</label><br>
+        <input type='text' id='nome_cap' />
+      </div>
 
-    <label for='valor_cap'>Valor Unitário (R$)</label><br>
-    <input type='number' id='valor_cap' /><br>
+      <div class='cadastro_aluno_fields'>
+        <label for='qtd_cap'>Quantidade</label><br>
+        <input type='number' id='qtd_cap' />
+      </div>
 
+      <div class='cadastro_aluno_fields'>
+        <label for='valor_cap'>Valor Unitário (R$)</label><br>
+        <input type='number' id='valor_cap' />
+      </div>
+    </div>
 
     <button id='cadastrar_cap'>Incluir</button>
 
@@ -240,7 +248,7 @@
   </div>
 
   <div id='bottom_bar'>
-    <button onclick='calcular()'>Terminar</button>
+    <button id='info-btn'>Info</button>
     <div style='display: inline-block'>Patrimônio Líquido: <span id='patrimLiq' class='money_value'>0</span></div>
   </div>
   <script src='js/index.js'></script>

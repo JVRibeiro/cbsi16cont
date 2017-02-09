@@ -8,7 +8,7 @@
 
   var
   periodoAtual,
-  totalPago,
+  totalPago = 0,
 
   // Cria variaveis para o controle de datas
   date = new Date(),
@@ -32,30 +32,30 @@
   nome_bens = document.querySelector( '#nome_bens' ),
   tipo_bens = document.querySelector( '#tipo_bens' ),
   qtd_bens = document.querySelector( '#qtd_bens' ),
-  valor_bens = document.querySelector( '#valor_bens' ),/*
-  bens_cadastrados = document.querySelector( '#bens_cadastrados' ),*/
+  valor_bens = document.querySelector( '#valor_bens' ),
+  bens_cadastrados = document.querySelector( '#bens_cadastrados' ),
   vagasDisp = document.querySelector( '#v_disp' ),
-/*
-  nome_cap = document.querySelector( '#nome_cap' ).value,
-  qtd_cap = document.querySelector( '#qtd_cap' ).value,
-  valor_cap = document.querySelector( '#valor_cap' ).value,
+
+  nome_cap = document.querySelector( '#nome_cap' ),
+  qtd_cap = document.querySelector( '#qtd_cap' ),
+  valor_cap = document.querySelector( '#valor_cap' ),
   cap_cadastrados = document.querySelector( '#cap_cadastrados' ),
-*/
+
   total_bens = 0,
   total_alunos = 0,
-  // total_cap = 0,
+   total_cap = 0,
 
 // localStorage
   _cadastroAluno = window.localStorage.getItem( 'cadastro_aluno' ),
   _cadastroAlunoSelect = window.localStorage.getItem( 'cadastro_aluno' ),
-  _cadastroBens = window.localStorage.getItem( 'cadastro_bens' ),/*
-  _cadastroCAP = window.localStorage.getItem( 'cadastro_cap' ),*/
+  _cadastroBens = window.localStorage.getItem( 'cadastro_bens' ),
+  _cadastroCAP = window.localStorage.getItem( 'cadastro_cap' ),
 
   _vagasDisp = window.localStorage.getItem( 'series_int' ),
 
   _totalALunos = localStorage.getItem( 'total_alunos' ),
-  _totalBens = localStorage.getItem( 'total_bens' ),/*
-  _totalCap = localStorage.getItem( 'total_cap' ),*/
+  _totalBens = localStorage.getItem( 'total_bens' ),
+  _totalCap = localStorage.getItem( 'total_cap' ),
 
 // Objeto de dados do programa
   data =
@@ -260,49 +260,49 @@
 
         localStorage.setItem( 'cadastro_bens', bens_cadastrados.innerHTML );
 
-        total_bens = total_bens + Number(valor_bens);
+        total_bens = total_bens + Number(valor_bens.value) * Number(qtd_bens.value);
 
-        tipo_bens = 'Selecione';
-        nome_bens = '';
-        qtd_bens = '';
-        valor_bens = '';
+        tipo_bens.value = 'Selecione';
+        nome_bens.value = '';
+        qtd_bens.value = '';
+        valor_bens.value = '';
 
         document.querySelector( '#bens_total' ).innerHTML = total_bens;
         localStorage.setItem( 'total_bens', total_bens );
       }
       else alert( 'Você esqueceu um campo em branco!' );
     },
-/*
+
     cadastrar_cap: function ()
     {
-      if ( nome_cap !== ''
-        && qtd_cap !== ''
-        && valor_cap !== '' )
+      if ( nome_cap.value !== ''
+        && qtd_cap.value !== ''
+        && valor_cap.value !== '' )
       {
 
         cap_cadastrados.innerHTML +=
            '<li>'
-           + '<div class="saved_1">Nome da conta: <span id="nome_cap_value">' + nome_cap + '</span></div>'
-           + '<div class="saved_1">Quantidade: <span id="qtd_cap_value">' + qtd_cap + '</span></div>'
-           + '<div class="saved_2">Valor Unitário: <span id="valor_unit_cap_value"  class="money_value">' + valor_cap + '</span></div>'
-           + '<div class="saved_2">Valor Total: <span id="valor_cap_value" class="money_value">' + qtd_cap * valor_cap + '</span></div>'
+           + '<div class="saved_1">Nome da conta: <span id="nome_cap_value">' + nome_cap.value + '</span></div>'
+           + '<div class="saved_1">Quantidade: <span id="qtd_cap_value">' + qtd_cap.value + '</span></div>'
+           + '<div class="saved_2">Valor Unitário: <span id="valor_unit_cap_value"  class="money_value">' + valor_cap.value + '</span></div>'
+           + '<div class="saved_2">Valor Total: <span id="valor_cap_value" class="money_value">' + qtd_cap.value * valor_cap.value + '</span></div>'
           + '</li>'
 
         localStorage.setItem( 'cadastro_cap', cap_cadastrados.innerHTML );
 
         total_cap = total_cap
-                  + Number(qtd_cap * valor_cap);
+                  + Number(qtd_cap.value * valor_cap.value);
 
-        nome_cap = '';
-        qtd_cap = '';
-        valor_cap = '';
+        nome_cap.value = '';
+        qtd_cap.value = '';
+        valor_cap.value = '';
 
         document.querySelector( '#cap_total' ).innerHTML = total_cap;
         localStorage.setItem( 'total_cap', total_cap );
       }
       else alert( 'Você esqueceu um campo em branco!' );
     },
-*/
+
 
     // Abre uma página específica do programa
     showPage: function ( pageSelector ) // @param CSS Selector
@@ -338,20 +338,17 @@
       data.showPage( '#cadastro_bens' );
       tipo_bens.focus();
     },
-/*
+
     show_cadastro_cap: function ()
     {
-      document.querySelector( '.page, .fixed_right' )
-      .style.display = 'none';
-
-      $( '#contas_pagar, #cap_cadastrados_holder' )
-      .fadeIn();
+      data.showPage( '#contas_pagar' );
+      nome_cap.focus();
     },
-*/
+
 
     calcular: function ()
     {
-      var calculo = ( total_alunos + total_bens ) - total_cap;
+      var calculo = ( totalPago + total_bens ) - total_cap;
       document.querySelector( '#patrimLiq' ).innerHTML = calculo;
     },
 
@@ -374,6 +371,9 @@
   // Carrega os dados salvos na inicializacao
   $( document ).ready( function ()
   {
+    calcTotalPago();
+    data.calcular();
+
     if ( _cadastroAluno != undefined )
     {
       data.aluno = JSON.parse( _cadastroAluno );
@@ -538,15 +538,15 @@
     console.log( JSON.stringify( data.aluno ) );
 
 
-//    if ( _cadastroBens != undefined ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
-//    if ( _cadastroCAP != undefined ) cap_cadastrados.innerHTML = localStorage.getItem( 'cadastro_cap' );
+    if ( _cadastroBens != undefined ) bens_cadastrados.innerHTML = localStorage.getItem( 'cadastro_bens' );
+    if ( _cadastroCAP != undefined ) cap_cadastrados.innerHTML = localStorage.getItem( 'cadastro_cap' );
 
     if ( _totalALunos != undefined )
     {
       document.querySelector( '#alunos_total' ).innerHTML = _totalALunos;
       total_alunos = Number( _totalALunos );
     }
-/*    if ( _totalBens != undefined )
+    if ( _totalBens != undefined )
     {
       document.querySelector( '#bens_total' ).innerHTML = _totalBens;
       total_bens = Number( _totalBens );
@@ -556,7 +556,7 @@
       document.querySelector( '#cap_total' ).innerHTML = _totalCap;
       total_cap = Number( _totalCap );
     }
-*/
+
     if ( _vagasDisp != undefined )
     {
       data.serie_count = JSON.parse( _vagasDisp );
@@ -571,6 +571,9 @@
 
       document.querySelector( '#currentPeriod' )
       .innerHTML = periodoAtual;
+
+      calcTotalPago();
+      data.calcular();
     }, 1000);
   });
 
@@ -625,13 +628,13 @@
     data.cadastrar_bens();
     tipo_bens.focus();
   });
-/*
+
   $( '#cadastrar_cap' ).on( 'click', function ()
   {
     data.cadastrar_cap();
     nome_cap.focus();
   });
-*/
+
   $( '#menu_btn' ).on( 'click', function ()
   {
     if ( !$( '#menu_btn' ).hasClass( 'is-active' ) )
@@ -667,6 +670,11 @@
   $( '.ui-combobox-input' ).on( 'change', function ()
   {
     searchClientData();
+  });
+
+  $( '#info-btn' ).on( 'click', function ()
+  {
+    alert( 'Alunos:  \nJOÃO VICTOR RIBEIRO\nIASMYN REIS\nGEORGE LUCAS' );
   });
 
 
@@ -787,7 +795,7 @@
           && d <= data.aluno[i].parcela.vencimento )
         {
           $( '#client_atrasadas div ul' ).append(
-            '<li style="border-left: 4px solid #6fa1ff;">'
+            '<li id="' + data.aluno[i].cadastro.data + '" style="border-left: 4px solid #6fa1ff;">'
             + 'Aberto: <strong>'
               + y + '-' + m
             + '</strong> <br>'
@@ -796,20 +804,15 @@
             + '</strong> '
             + '<button style="float: right;margin-top: -20px;" '
             + 'onclick="'
-              + 'var arr=data.aluno['+i+'].atraso.periodo,'
-              + 'index=arr.indexOf(\''+y + '-' + m+'\');'
-              + 'if(index>-1){'
+
               + 'data.aluno['+i+'].mes_pago.push(\''+y + '-' + m+'\');'
-              + 'console.log(data.aluno['+i+'].atraso.periodo[index]+\' removido\');'
-              + 'arr.splice(index,1);'
-              + '$(this).parent().remove();'
               + 'if (data.aluno['+i+'].atraso.periodo.length == 0)'
               + '{'
                 + 'data.aluno['+i+'].situacao = \'REGULARIZADO\';'
               + '};'
               + 'data.save.aluno();'
               + 'searchClientData();'
-              + '}'
+              + '$(\'#' + data.aluno[i].cadastro.data + '\').fadeOut();'
               + '">Confirmar pagamento</button><br>'
             + '</li>'
           );
